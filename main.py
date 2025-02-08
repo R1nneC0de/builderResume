@@ -4,6 +4,12 @@ from fastapi.middleware.cors import CORSMiddleware
 import requests
 import os
 from dotenv import load_dotenv
+from database import engine
+from models import Base
+
+# Create the tables
+Base.metadata.create_all(bind=engine)
+
 
 # Load environment variables
 load_dotenv()
@@ -93,3 +99,4 @@ async def upload_resume(request: Request):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+
